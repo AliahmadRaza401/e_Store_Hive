@@ -22,7 +22,7 @@ class CartProvider with ChangeNotifier {
   getCartItem() async {
     final box = await Hive.openBox<CartModel>(_cartBox);
     _cartList = box.values.toList();
-
+    calculateTotalPrice();
     notifyListeners();
   }
 
@@ -31,6 +31,9 @@ class CartProvider with ChangeNotifier {
 
     box.putAt(index, product);
 
+    getCartItem();
+    // totalPrice = 0;
+    // calculateTotalPrice();
     notifyListeners();
   }
 
@@ -43,11 +46,10 @@ class CartProvider with ChangeNotifier {
   }
 
   calculateTotalPrice() {
-   
-
+    totalPrice = 0;
     for (var i = 0; i < _cartList.length; i++) {
       int price = int.parse(_cartList[i].price);
-      int quantity  = int.parse(_cartList[i].quantity );
+      int quantity = int.parse(_cartList[i].quantity);
       totalPrice = totalPrice + price * quantity;
       print('totalPrice: ${totalPrice}');
     }

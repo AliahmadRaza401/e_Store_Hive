@@ -173,8 +173,8 @@ class Products extends StatelessWidget {
                                                         );
                                                         value.getCartItem();
                                                         AppToast.successToast(
-                                                            "Success",
-                                                            "Item added Successfully",
+                                                            "Success!",
+                                                            "Item Add Successfully",
                                                             context);
                                                       } else {
                                                         value.cartList
@@ -202,8 +202,8 @@ class Products extends StatelessWidget {
                                                             );
                                                             value.getCartItem();
                                                             AppToast.successToast(
-                                                                "Success",
-                                                                "Item added Successfully",
+                                                                "Success!",
+                                                                "Item Add Successfully",
                                                                 context);
                                                           }
                                                         });
@@ -317,10 +317,10 @@ class Products extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        height: 10,
+                        height: 30,
                       ),
-                      RaisedButton(
-                        onPressed: () async {
+                      InkWell(
+                        onTap: () async {
                           if (_formKey.currentState!.validate()) {
                             print(
                                 'nameController.text: ${nameController.text}');
@@ -342,15 +342,60 @@ class Products extends StatelessWidget {
                             Navigator.pop(context);
                           }
                         },
-                        color: Colors.green[600],
-                        child: Text(
-                          'Add',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white,
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: AppSizes.dynamicWidth(context, 0.5),
+                          height: AppSizes.dynamicHeight(context, 0.07),
+                          margin: EdgeInsets.symmetric(
+                            horizontal: AppSizes.dynamicWidth(context, 0.03),
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.orange,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Text(
+                            "Add Item",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: AppSizes.dynamicWidth(context, 0.04),
+                            ),
                           ),
                         ),
                       ),
+                      // RaisedButton(
+                      //   onPressed: () async {
+                      //     if (_formKey.currentState!.validate()) {
+                      //       print(
+                      //           'nameController.text: ${nameController.text}');
+                      //       print(
+                      //           'oldPriceController: ${priceController.text}');
+
+                      //       await inventoryDb.addProductItem(Product(
+                      //         name: nameController.text.toString(),
+                      //         image: '',
+                      //         date: DateTime.now(),
+                      //         price: priceController.text.toString(),
+                      //       ));
+
+                      //       nameController.clear();
+                      //       priceController.clear();
+
+                      //       inventoryDb.getProductItem();
+
+                      //       Navigator.pop(context);
+                      //     }
+                      //   },
+                      //   color: Colors.green[600],
+                      //   child: Text(
+                      //     'Add',
+                      //     style: TextStyle(
+                      //       fontSize: 16,
+                      //       color: Colors.white,
+                      //     ),
+                      //   ),
+                      // ),
+
                       SizedBox(
                         height: 20,
                       )

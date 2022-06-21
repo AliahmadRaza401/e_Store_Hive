@@ -26,7 +26,7 @@ class _CartState extends State<Cart> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    context.watch<CartProvider>().getCartItem();
+    Provider.of<CartProvider>(context, listen: false).getCartItem();
     Provider.of<CartProvider>(context, listen: false).totalPrice = 0;
 
     Provider.of<CartProvider>(context, listen: false).calculateTotalPrice();
@@ -184,6 +184,10 @@ class _CartState extends State<Cart> {
                                                                         quantity:
                                                                             myquan.toString()),
                                                                   );
+                                                                  // model
+                                                                  //     .getCartItem();
+                                                                  // model
+                                                                  //     .calculateTotalPrice();
                                                                 },
                                                                 child:
                                                                     Container(
@@ -252,6 +256,10 @@ class _CartState extends State<Cart> {
                                                                         quantity:
                                                                             newQuan.toString()),
                                                                   );
+                                                                  // model
+                                                                  //     .getCartItem();
+                                                                  // model
+                                                                  //     .calculateTotalPrice();
                                                                 },
                                                                 child:
                                                                     Container(
