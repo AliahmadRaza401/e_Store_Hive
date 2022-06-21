@@ -340,26 +340,30 @@ class _CartState extends State<Cart> {
                             ],
                           ),
                         ),
-                        Container(
-                          alignment: Alignment.center,
-                          width: AppSizes.dynamicWidth(context, 1),
-                          height: AppSizes.dynamicHeight(context, 0.07),
-                          margin: EdgeInsets.symmetric(
-                            horizontal: AppSizes.dynamicWidth(context, 0.03),
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.orange,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Text(
-                            "Proceed To Pay",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: AppSizes.dynamicWidth(context, 0.05),
-                            ),
-                          ),
-                        ),
+                        model.cartList.length <= 0
+                            ? SizedBox()
+                            : Container(
+                                alignment: Alignment.center,
+                                width: AppSizes.dynamicWidth(context, 1),
+                                height: AppSizes.dynamicHeight(context, 0.07),
+                                margin: EdgeInsets.symmetric(
+                                  horizontal:
+                                      AppSizes.dynamicWidth(context, 0.03),
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.orange,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Text(
+                                  "Proceed To Pay",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize:
+                                        AppSizes.dynamicWidth(context, 0.05),
+                                  ),
+                                ),
+                              ),
                       ],
                     ),
                   ),
