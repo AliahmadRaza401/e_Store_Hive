@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../model/product_model.dart';
 import '../provider/item_provider.dart';
+import '../utils/constant.dart';
 import '../widgets/size_config.dart';
 
 class Cart extends StatefulWidget {
@@ -56,7 +57,6 @@ class _CartState extends State<Cart> {
                                 style: TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.w600,
-                                  fontFamily: 'Lato',
                                 ),
                               ),
                               SizedBox(
@@ -64,8 +64,10 @@ class _CartState extends State<Cart> {
                               ),
                               model.cartList.length <= 0
                                   ? Container(
+                                      height:
+                                          AppSizes.dynamicHeight(context, 0.7),
                                       child: Center(
-                                        child: Text("No Product"),
+                                        child: Text("Cart is Empty"),
                                       ),
                                     )
                                   : Container(
@@ -265,8 +267,7 @@ class _CartState extends State<Cart> {
                                                                     Container(
                                                                   decoration:
                                                                       BoxDecoration(
-                                                                    color: Colors
-                                                                        .orange,
+                                                                    color: c1,
                                                                     borderRadius:
                                                                         BorderRadius
                                                                             .circular(5),
@@ -287,7 +288,7 @@ class _CartState extends State<Cart> {
                                                     Row(
                                                       children: [
                                                         Text(
-                                                          "\$${inv.price.toString()}",
+                                                          "OMR ${inv.price.toString()}",
                                                           style: TextStyle(
                                                             color: Colors.black,
                                                             // fontWeight: FontWeight.bold,
@@ -320,34 +321,38 @@ class _CartState extends State<Cart> {
                             ],
                           ),
                         ),
-                        Container(
-                          margin: EdgeInsets.symmetric(
-                            horizontal: AppSizes.dynamicWidth(context, 0.03),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                "Total Price:",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize:
-                                      AppSizes.dynamicWidth(context, 0.04),
+                        model.cartList.length <= 0
+                            ? SizedBox()
+                            : Container(
+                                margin: EdgeInsets.symmetric(
+                                  horizontal:
+                                      AppSizes.dynamicWidth(context, 0.03),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text(
+                                      "Total Price:",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: AppSizes.dynamicWidth(
+                                            context, 0.04),
+                                      ),
+                                    ),
+                                    Text(
+                                      "OMR ${model.totalPrice.toString()}",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: AppSizes.dynamicWidth(
+                                            context, 0.04),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              Text(
-                                "\$${model.totalPrice.toString()}",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize:
-                                      AppSizes.dynamicWidth(context, 0.04),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
                         model.cartList.length <= 0
                             ? SizedBox()
                             : Container(
@@ -359,7 +364,7 @@ class _CartState extends State<Cart> {
                                       AppSizes.dynamicWidth(context, 0.03),
                                 ),
                                 decoration: BoxDecoration(
-                                  color: Colors.orange,
+                                  color: c2,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Text(

@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 
 import '../model/product_model.dart';
 import '../provider/item_provider.dart';
+import '../utils/constant.dart';
 import '../widgets/size_config.dart';
 
 class Products extends StatelessWidget {
@@ -39,7 +40,6 @@ class Products extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.w600,
-                          fontFamily: 'Lato',
                         ),
                       ),
                       SizedBox(
@@ -47,18 +47,20 @@ class Products extends StatelessWidget {
                       ),
                       model.productList.length <= 0
                           ? Container(
+                              height: AppSizes.dynamicHeight(context, 0.7),
                               child: Center(
                                 child: Text("No Product"),
                               ),
                             )
                           : Container(
-                              height: AppSizes.dynamicHeight(context, 0.77),
+                              height: AppSizes.dynamicHeight(context, 0.85),
                               child: ListView.builder(
                                 itemCount: model.productList.length,
                                 itemBuilder: (context, index) {
                                   Product inv = model.productList[index];
                                   return InkWell(
                                     onLongPress: () {
+                                      print("Delete");
                                       model.deleteProductItem(index);
                                     },
                                     child: Container(
@@ -130,7 +132,7 @@ class Products extends StatelessWidget {
                                                   Row(
                                                     children: [
                                                       Text(
-                                                        "\$${inv.price.toString()}",
+                                                        "OMR ${inv.price.toString()}",
                                                         style: TextStyle(
                                                           color: Colors.black,
                                                           // fontWeight: FontWeight.bold,
@@ -218,7 +220,7 @@ class Products extends StatelessWidget {
                                                               context, 0.08),
                                                       decoration: BoxDecoration(
                                                         shape: BoxShape.circle,
-                                                        color: Colors.orange,
+                                                        color: c1,
                                                       ),
                                                       child: Icon(
                                                         Icons.shopping_cart,
@@ -242,7 +244,7 @@ class Products extends StatelessWidget {
                 ),
               ),
             ),
-            floatingActionButton: FloatingActionButton(
+            floatingActionButton: FloatingActionButton.small(
               onPressed: () {
                 inputItemDialog(context, 'add');
               },
@@ -269,138 +271,98 @@ class Products extends StatelessWidget {
             padding: EdgeInsets.only(
               left: 15,
               right: 15,
-              top: 40,
+              top: 20,
             ),
             height: AppSizes.dynamicHeight(context, 0.5),
-            child: SingleChildScrollView(
-              child: Form(
-                key: _formKey,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: <Widget>[
-                      Text(
-                        'Add Product',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
+            child: Form(
+              key: _formKey,
+              child: Container(
+                height: AppSizes.dynamicHeight(context, 0.5),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Text(
+                      'Add Product',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      TextFormField(
-                        controller: nameController,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Product name cannot be empty';
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                          labelText: 'Product name',
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      TextFormField(
-                        controller: priceController,
-                        keyboardType: TextInputType.number,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Product Price cannot be empty';
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                          labelText: ' Price',
-                        ),
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      InkWell(
-                        onTap: () async {
-                          if (_formKey.currentState!.validate()) {
-                            print(
-                                'nameController.text: ${nameController.text}');
-                            print(
-                                'oldPriceController: ${priceController.text}');
-
-                            await inventoryDb.addProductItem(Product(
-                              name: nameController.text.toString(),
-                              image: '',
-                              date: DateTime.now(),
-                              price: priceController.text.toString(),
-                            ));
-
-                            nameController.clear();
-                            priceController.clear();
-
-                            inventoryDb.getProductItem();
-
-                            Navigator.pop(context);
-                          }
-                        },
-                        child: Container(
-                          alignment: Alignment.center,
-                          width: AppSizes.dynamicWidth(context, 0.5),
-                          height: AppSizes.dynamicHeight(context, 0.07),
-                          margin: EdgeInsets.symmetric(
-                            horizontal: AppSizes.dynamicWidth(context, 0.03),
+                    ),
+                    Column(
+                      children: [
+                        TextFormField(
+                          controller: nameController,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Product name cannot be empty';
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            labelText: 'Product name',
                           ),
-                          decoration: BoxDecoration(
-                            color: Colors.orange,
-                            borderRadius: BorderRadius.circular(10),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          controller: priceController,
+                          keyboardType: TextInputType.number,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Product Price cannot be empty';
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            labelText: ' Price',
                           ),
-                          child: Text(
-                            "Add Item",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: AppSizes.dynamicWidth(context, 0.04),
-                            ),
+                        ),
+                      ],
+                    ),
+                    InkWell(
+                      onTap: () async {
+                        if (_formKey.currentState!.validate()) {
+                          print('nameController.text: ${nameController.text}');
+                          print('oldPriceController: ${priceController.text}');
+
+                          await inventoryDb.addProductItem(Product(
+                            name: nameController.text.toString(),
+                            image: '',
+                            date: DateTime.now(),
+                            price: priceController.text.toString(),
+                          ));
+
+                          nameController.clear();
+                          priceController.clear();
+
+                          inventoryDb.getProductItem();
+
+                          Navigator.pop(context);
+                        }
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: AppSizes.dynamicWidth(context, 0.5),
+                        height: AppSizes.dynamicHeight(context, 0.07),
+                        margin: EdgeInsets.symmetric(
+                          horizontal: AppSizes.dynamicWidth(context, 0.03),
+                        ),
+                        decoration: BoxDecoration(
+                          color: c1,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Text(
+                          "Add Item",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: AppSizes.dynamicWidth(context, 0.04),
                           ),
                         ),
                       ),
-                      // RaisedButton(
-                      //   onPressed: () async {
-                      //     if (_formKey.currentState!.validate()) {
-                      //       print(
-                      //           'nameController.text: ${nameController.text}');
-                      //       print(
-                      //           'oldPriceController: ${priceController.text}');
-
-                      //       await inventoryDb.addProductItem(Product(
-                      //         name: nameController.text.toString(),
-                      //         image: '',
-                      //         date: DateTime.now(),
-                      //         price: priceController.text.toString(),
-                      //       ));
-
-                      //       nameController.clear();
-                      //       priceController.clear();
-
-                      //       inventoryDb.getProductItem();
-
-                      //       Navigator.pop(context);
-                      //     }
-                      //   },
-                      //   color: Colors.green[600],
-                      //   child: Text(
-                      //     'Add',
-                      //     style: TextStyle(
-                      //       fontSize: 16,
-                      //       color: Colors.white,
-                      //     ),
-                      //   ),
-                      // ),
-
-                      SizedBox(
-                        height: 20,
-                      )
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),

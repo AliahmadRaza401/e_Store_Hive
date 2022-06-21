@@ -3,6 +3,8 @@ import 'package:e_store/screens/products.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
+import '../utils/constant.dart';
+
 class BottomNavBar extends StatefulWidget {
   BottomNavBar({Key? key}) : super(key: key);
 
@@ -20,7 +22,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
       extendBody: true,
       body: _index == 0 ? Products() : Cart(),
       bottomNavigationBar: FloatingNavbar(
-        backgroundColor: Colors.orange,
+        backgroundColor: c1,
+        selectedItemColor: c2,
         onTap: (int val) => setState(() => _index = val),
         currentIndex: _index,
         items: [
