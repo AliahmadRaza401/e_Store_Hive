@@ -155,7 +155,7 @@ class _CartState extends State<Cart> {
                                                           // color: Colors.amber,
                                                           width: AppSizes
                                                               .dynamicWidth(
-                                                                  context, 0.3),
+                                                                  context, 0.2),
                                                           child: Row(
                                                             children: [
                                                               InkWell(
@@ -295,7 +295,7 @@ class _CartState extends State<Cart> {
                                                             fontSize: AppSizes
                                                                 .dynamicWidth(
                                                                     context,
-                                                                    0.04),
+                                                                    0.03),
                                                           ),
                                                         ),
                                                         IconButton(

@@ -58,182 +58,193 @@ class Products extends StatelessWidget {
                                 itemCount: model.productList.length,
                                 itemBuilder: (context, index) {
                                   Product inv = model.productList[index];
-                                  return InkWell(
-                                    onLongPress: () {
-                                      print("Delete");
-                                      model.deleteProductItem(index);
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.symmetric(
-                                        vertical: AppSizes.dynamicHeight(
-                                            context, 0.01),
-                                        horizontal: AppSizes.dynamicWidth(
-                                            context, 0.03),
-                                      ),
-                                      padding: EdgeInsets.symmetric(
-                                        vertical: AppSizes.dynamicHeight(
-                                            context, 0.005),
-                                        horizontal: AppSizes.dynamicWidth(
-                                            context, 0.05),
-                                      ),
-                                      height:
-                                          AppSizes.dynamicHeight(context, 0.15),
-                                      // width: 50.width,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.5),
-                                            spreadRadius: 1,
-                                            blurRadius: 5,
-                                            offset: Offset(0,
-                                                0), // changes position of shadow
-                                          ),
-                                        ],
-                                      ),
-                                      child: Row(
-                                        children: <Widget>[
-                                          Image.asset(
-                                              'assets/images/itunes.jpg'),
-                                          SizedBox(
-                                            width: AppSizes.dynamicWidth(
-                                                context, 0.07),
-                                          ),
-                                          Flexible(
-                                              child: Container(
-                                                  // color: Colors.amber,
-                                                  // margin: EdgeInsets.symmetric(
-                                                  //   horizontal: AppSizes.dynamicWidth(
-                                                  //       context, 0.05),
-                                                  // ),
-                                                  child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    inv.name.toString(),
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize:
-                                                          AppSizes.dynamicWidth(
-                                                              context, 0.05),
-                                                    ),
+                                  return Container(
+                                    margin: EdgeInsets.symmetric(
+                                      vertical:
+                                          AppSizes.dynamicHeight(context, 0.01),
+                                      horizontal:
+                                          AppSizes.dynamicWidth(context, 0.03),
+                                    ),
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: AppSizes.dynamicHeight(
+                                          context, 0.005),
+                                      horizontal:
+                                          AppSizes.dynamicWidth(context, 0.05),
+                                    ),
+                                    height:
+                                        AppSizes.dynamicHeight(context, 0.15),
+                                    // width: 50.width,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          spreadRadius: 1,
+                                          blurRadius: 5,
+                                          offset: Offset(0,
+                                              0), // changes position of shadow
+                                        ),
+                                      ],
+                                    ),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Image.asset('assets/images/itunes.jpg'),
+                                        SizedBox(
+                                          width: AppSizes.dynamicWidth(
+                                              context, 0.07),
+                                        ),
+                                        Flexible(
+                                            child: Container(
+                                                // color: Colors.amber,
+                                                // margin: EdgeInsets.symmetric(
+                                                //   horizontal: AppSizes.dynamicWidth(
+                                                //       context, 0.05),
+                                                // ),
+                                                child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  inv.name.toString(),
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize:
+                                                        AppSizes.dynamicWidth(
+                                                            context, 0.05),
                                                   ),
-                                                  Row(
-                                                    children: [
-                                                      Text(
-                                                        "OMR ${inv.price.toString()}",
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          // fontWeight: FontWeight.bold,
-                                                          fontSize: AppSizes
-                                                              .dynamicWidth(
-                                                                  context,
-                                                                  0.04),
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                      "OMR ${inv.price.toString()}",
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                        // fontWeight: FontWeight.bold,
+                                                        fontSize: AppSizes
+                                                            .dynamicWidth(
+                                                                context, 0.04),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Consumer<CartProvider>(
+                                                  builder:
+                                                      ((context, value, child) {
+                                                    return InkWell(
+                                                      onTap: () {
+                                                        print("Adding to Cart");
+                                                        // var inventoryDb = Provider
+                                                        //     .of<CartProvider>(
+                                                        //         context,
+                                                        //         listen: false);
+                                                        if (value.cartList
+                                                                .isEmpty ||
+                                                            value.cartList
+                                                                    .length <
+                                                                0) {
+                                                          value.addCartItem(
+                                                            CartModel(
+                                                              name: inv.name
+                                                                  .toString(),
+                                                              image: "",
+                                                              date: DateTime
+                                                                  .now(),
+                                                              price: inv.price
+                                                                  .toString(),
+                                                              quantity: "1",
+                                                            ),
+                                                          );
+                                                          value.getCartItem();
+                                                          AppToast.successToast(
+                                                              "Success!",
+                                                              "Item Add Successfully",
+                                                              context);
+                                                        } else {
+                                                          value.cartList
+                                                              .forEach(
+                                                                  (element) {
+                                                            if (element.name
+                                                                    .toString() ==
+                                                                inv.name
+                                                                    .toString()) {
+                                                              AppToast.failureToast(
+                                                                  "Fail",
+                                                                  "Item already added",
+                                                                  context);
+                                                            } else {
+                                                              value.addCartItem(
+                                                                CartModel(
+                                                                  name: inv.name
+                                                                      .toString(),
+                                                                  image: "",
+                                                                  date: DateTime
+                                                                      .now(),
+                                                                  price: inv
+                                                                      .price
+                                                                      .toString(),
+                                                                  quantity: "1",
+                                                                ),
+                                                              );
+                                                              value
+                                                                  .getCartItem();
+                                                              AppToast.successToast(
+                                                                  "Success!",
+                                                                  "Item Add Successfully",
+                                                                  context);
+                                                            }
+                                                          });
+                                                        }
+                                                      },
+                                                      child: Container(
+                                                        width: AppSizes
+                                                            .dynamicWidth(
+                                                                context, 0.1),
+                                                        height: AppSizes
+                                                            .dynamicHeight(
+                                                                context, 0.05),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          color: c1,
+                                                        ),
+                                                        child: Icon(
+                                                          Icons.shopping_cart,
+                                                          color: Colors.white,
                                                         ),
                                                       ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                              Consumer<CartProvider>(
-                                                builder:
-                                                    ((context, value, child) {
-                                                  return InkWell(
-                                                    onTap: () {
-                                                      print("Adding to Cart");
-                                                      // var inventoryDb = Provider
-                                                      //     .of<CartProvider>(
-                                                      //         context,
-                                                      //         listen: false);
-                                                      if (value.cartList
-                                                              .isEmpty ||
-                                                          value.cartList
-                                                                  .length <
-                                                              0) {
-                                                        value.addCartItem(
-                                                          CartModel(
-                                                            name: inv.name
-                                                                .toString(),
-                                                            image: "",
-                                                            date:
-                                                                DateTime.now(),
-                                                            price: inv.price
-                                                                .toString(),
-                                                            quantity: "1",
-                                                          ),
-                                                        );
-                                                        value.getCartItem();
-                                                        AppToast.successToast(
-                                                            "Success!",
-                                                            "Item Add Successfully",
-                                                            context);
-                                                      } else {
-                                                        value.cartList
-                                                            .forEach((element) {
-                                                          if (element.name
-                                                                  .toString() ==
-                                                              inv.name
-                                                                  .toString()) {
-                                                            AppToast.failureToast(
-                                                                "Fail",
-                                                                "Item already added",
-                                                                context);
-                                                          } else {
-                                                            value.addCartItem(
-                                                              CartModel(
-                                                                name: inv.name
-                                                                    .toString(),
-                                                                image: "",
-                                                                date: DateTime
-                                                                    .now(),
-                                                                price: inv.price
-                                                                    .toString(),
-                                                                quantity: "1",
-                                                              ),
-                                                            );
-                                                            value.getCartItem();
-                                                            AppToast.successToast(
-                                                                "Success!",
-                                                                "Item Add Successfully",
-                                                                context);
-                                                          }
-                                                        });
-                                                      }
+                                                    );
+                                                  }),
+                                                ),
+                                                IconButton(
+                                                    onPressed: () {
+                                                      print("Delete");
+                                                      model.deleteProductItem(
+                                                          index);
                                                     },
-                                                    child: Container(
-                                                      width:
-                                                          AppSizes.dynamicWidth(
-                                                              context, 0.1),
-                                                      height: AppSizes
-                                                          .dynamicHeight(
-                                                              context, 0.08),
-                                                      decoration: BoxDecoration(
-                                                        shape: BoxShape.circle,
-                                                        color: c1,
-                                                      ),
-                                                      child: Icon(
-                                                        Icons.shopping_cart,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                  );
-                                                }),
-                                              ),
-                                            ],
-                                          ))),
-                                        ],
-                                      ),
+                                                    icon: Icon(
+                                                      Icons.delete,
+                                                      color: Colors.red,
+                                                    )),
+                                              ],
+                                            ),
+                                          ],
+                                        ))),
+                                      ],
                                     ),
                                   );
                                 },
